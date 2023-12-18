@@ -30,3 +30,11 @@ input{
 .file:hover{
     box-shadow: 3px 3px 2px lightblue;
 }
+
+.podcast-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}

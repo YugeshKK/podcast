@@ -12,6 +12,7 @@ import { setUser } from './slices/userSlice';
 import { auth, db } from './firebase';
 import { PrivateRoutes } from './components/common/PrivateRoutes';
 import { CreateaPodCast } from './pages/CreateaPodCast';
+import { Podcasts } from './pages/Podcasts';
 
 function App() {
 
@@ -58,6 +59,7 @@ const dispatch= useDispatch();
         <Route element=<PrivateRoutes/> >
         <Route path='/profile' element=<Profile/> />
         <Route path='/create-a-podcast' element=<CreateaPodCast/> />
+        <Route path='/podcast' element=<Podcasts/> />
         </Route>
       </Routes>
     </BrowserRouter>
