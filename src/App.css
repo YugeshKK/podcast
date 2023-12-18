@@ -1,0 +1,32 @@
+input{
+    border: none;
+}
+
+/* .bg{
+    background-image: url('aa.jpg');
+    background-size: cover;
+    height: 100vh;
+} */
+.pp{
+    text-align: center;
+}
+.pod{
+    display: flex;
+    align-items: center;
+    margin-top: 4rem;
+    flex-direction: column;
+}
+.file{
+    width: 20rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 255, 255, 0.228);
+}
+
+.file:hover{
+    box-shadow: 3px 3px 2px lightblue;
+}

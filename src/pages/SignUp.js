@@ -8,7 +8,7 @@ export const SignUp = () => {
     const [flag, setFlag]= useState(false);
 
   return (
-    <div>
+    <div className='bg'>
         <Header/>
         <div className='wrapper'>
           {!flag ? <h1>Sign Up</h1> : <h1>Login</h1>}

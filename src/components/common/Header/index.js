@@ -13,7 +13,7 @@ export const Header = () => {
         <div className="links">
          <Link className={currentPath=='/' ? 'active' : ""} to='/'>Sign Up</Link>
          <Link  to='/podcast'>Podcasts</Link>
-         <Link  to='/start-a-podcast'>Start a Podacst</Link>
+         <Link  to='/create-a-podcast'>Create a Podacst</Link>
          <Link  to='/profile'>Profile</Link>
         </div>
     </div>
