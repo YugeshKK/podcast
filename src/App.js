@@ -13,6 +13,8 @@ import { auth, db } from './firebase';
 import { PrivateRoutes } from './components/common/PrivateRoutes';
 import { CreateaPodCast } from './pages/CreateaPodCast';
 import { Podcasts } from './pages/Podcasts';
+import { PodcastDetails } from './pages/PodcastDetails';
+import { CreateEpisode } from './pages/CreateEpisode';
 
 function App() {
 
@@ -56,11 +58,15 @@ const dispatch= useDispatch();
     <BrowserRouter>
       <Routes>
         <Route path='/' element=<SignUp/> />
+
         <Route element=<PrivateRoutes/> >
         <Route path='/profile' element=<Profile/> />
         <Route path='/create-a-podcast' element=<CreateaPodCast/> />
         <Route path='/podcast' element=<Podcasts/> />
+        <Route path='/podcast/:id' element=<PodcastDetails/> />
+        <Route path='/podcast/:id/create-episode' element=<CreateEpisode/> />
         </Route>
+
       </Routes>
     </BrowserRouter>
     
