@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Header } from '../components/common/Header'
-import { collection, onSnapshot, query } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, onSnapshot, query } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPodcast } from '../slices/podCastSlice'
@@ -14,6 +14,7 @@ export const Podcasts = () => {
     const [search, setSearch]= useState("");
     const [genere, setGenere]= useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [collectionData, setCollectionData] = useState([]);
 
 
     useEffect(() => {
@@ -36,6 +37,33 @@ export const Podcasts = () => {
       }
     }, [])
 
+   async function getData(){
+         const docRef = doc(db, "users",);
+        const docSnap = await getDoc(docRef);
+        console.log(docSnap)
+   }
+
+   useEffect(() => {
+    const fetchCollectionData = async () => {
+      const yourCollection = collection(db, 'users'); // Replace 'yourCollectionName' with the actual name of your collection
+
+      try {
+        const querySnapshot = await getDocs(yourCollection);
+
+        // Extract data from each document in the collection
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setCollectionData(data);
+      } catch (error) {
+        console.error('Error fetching collection data:', error);
+      }
+    };
+
+    fetchCollectionData();
+  }, []); 
 
     useEffect(() => {
       // Filter the data based on the search value
@@ -53,7 +81,6 @@ export const Podcasts = () => {
   
       // Update the state with the filtered data
       setFilteredData(newFilteredData1);
-
     }, [podcasts, search, genere]);
         
   return (
@@ -81,7 +108,15 @@ export const Podcasts = () => {
       ) : (
         <div className='podcast-flex'>
           {filteredData.map((item) => {
-            return <PodcastCard key={item.id} id={item.id} title={item.title} displayImage={item.displayImage} />
+            if(collectionData.length>0){
+              var nameR='';
+              collectionData.map((ff)=>{
+                if(ff.id.trim().toLowerCase()==item.createdBy.trim().toLowerCase()){
+                  nameR=ff.name;
+                }
+              })
+            }
+            return <PodcastCard key={item.id} id={item.id} title={item.title} displayImage={item.displayImage} created={nameR}  />
           })}
         </div>
       )}

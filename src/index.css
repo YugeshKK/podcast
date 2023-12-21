@@ -8,6 +8,9 @@
   --purple-grey:#8f8297;
 }
 
+*{
+  text-decoration: none;
+}
 
 body {
   margin: 0;
