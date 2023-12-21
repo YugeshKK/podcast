@@ -25,7 +25,7 @@ export const PodcastDetails = () => {
         try {
             const docRef = doc(db, "podcasts", id);
             const docSnap = await getDoc(docRef);
-    
+  
             if (docSnap.exists()) {
             setPodcast({id:id, ...docSnap.data()})
             toast.success('Podcast Found')
@@ -69,7 +69,7 @@ export const PodcastDetails = () => {
             {podcast.id && (
                <div className='details'>
                <div className="banner-wrapper">
-                <img src={podcast.displayImage} alt="" />
+                <img src={podcast.bannerIamge} alt="" />
                </div>
                <p>{podcast.description}</p>
                <h1>Episodes</h1>

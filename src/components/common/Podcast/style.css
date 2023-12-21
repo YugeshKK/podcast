@@ -9,6 +9,7 @@
     border-radius: 2rem;
     padding:0.5rem;
     opacity: 0.7;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -22,6 +23,8 @@
     color: white;
     font-size: 19px;
     text-align: center;
+    text-decoration: none;
+    
 }
 .podcast-card:hover{
     opacity: 1;

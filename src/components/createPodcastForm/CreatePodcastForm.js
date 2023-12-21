@@ -14,6 +14,7 @@ export const CreatePodcastForm = () => {
 
   const [title, setTitle]= useState('')
   const [desc, setDesc]= useState('');
+  const [genere, setGenere]= useState('');
   const [displayImage, setDisplayImage]= useState('');
   const [bannerIamge, setBanner]= useState('');
 
@@ -50,14 +51,18 @@ export const CreatePodcastForm = () => {
         bannerIamge:bannerImageUrl,
         displayImage:displayImageUrl,
         createdBy:auth.currentUser.uid,
+        genere:genere,
       }
+
      const docRef= await addDoc(collection(db, 'podcasts'), podCastData);
       setTitle('');
       setDesc('');
       setBanner('');
       setDisplayImage('');
+      setGenere('');
       toast.success('Podcast Created')
       setLoading(false)
+      navigate('/podcast')
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
@@ -86,6 +91,15 @@ export const CreatePodcastForm = () => {
         <InputComponent state={desc} setState={setDesc} 
             placeholder='Description' type='text' required={true}
         />
+
+        <label for="cars">Choose a Genere:</label>
+
+        <select id="cars" onChange={(e)=> setGenere(e.target.value)} value={genere}>
+          <option value="sports">Sports</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="fiction">Fiction</option>
+      </select>
 
         <FileSelector accept={'image/*'} id='display-image' fileHandle={displayImageFun} text='Select Display Image' />  
         <FileSelector accept={'image/*'} id='banner-image' fileHandle={bannerImageFun} text='Select Banner Iamge'/>  

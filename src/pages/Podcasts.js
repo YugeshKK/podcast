@@ -5,14 +5,15 @@ import { db } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPodcast } from '../slices/podCastSlice'
 import { PodcastCard } from '../components/common/Podcast/PodcastCard'
+import { InputComponent } from '../components/common/Input'
 
 export const Podcasts = () => {
 
     const dispatch= useDispatch();
     const podcasts= useSelector((state)=> state.podcasts.podcasts);
-    const [search, setSearch]= useState('')
-
-
+    const [search, setSearch]= useState("");
+    const [genere, setGenere]= useState('');
+    const [filteredData, setFilteredData] = useState([]);
 
 
     useEffect(() => {
@@ -36,26 +37,54 @@ export const Podcasts = () => {
     }, [])
 
 
-    var filteredData= podcasts.filter((item)=>
-        item.title.trim().toLowerCase().includes(search.trim().toLowerCase())
-    );
-    
+    useEffect(() => {
+      // Filter the data based on the search value
+      const newFilteredData = podcasts.filter(item =>
+        item && item.title && item.title.toLowerCase().includes(search.toLowerCase())
+      );
+  
+      // Update the state with the filtered data
+      setFilteredData(newFilteredData);
+
+      const newFilteredData1 = podcasts.filter(item =>
+        item && item.title && item.title.toLowerCase().includes(search.toLowerCase()) &&
+        (!genere || item.genere === genere) // Adjust this condition based on your data structure
+      );
+  
+      // Update the state with the filtered data
+      setFilteredData(newFilteredData1);
+
+    }, [podcasts, search, genere]);
+        
   return (
     <div>
         <Header />
         <div className="wrapper" style={{marginTop:'1rem'}}>
             <h1>Podcasts</h1>
-            <input className='inpu' type="text" value={search}
-                onChange={(e)=> setSearch(e.target.value)}
-             />
-            {filteredData.length>0 ? (
-                <div className='podcast-flex'>
-                {filteredData.map((item)=>{
-                     return <PodcastCard key={item.id} id={item.id} title={item.title} displayImage={item.displayImage} />
-                })}
-                </div>
-            )
-             : <p>Not Found</p> }
+            <input className='inpu'
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+      />
+      <div className='gg'> 
+        <label htmlFor='cars'>Filter by Genere</label>
+        <select name="" id="cars" value={genere} onChange={(e)=> setGenere(e.target.value)}>
+        <option value="sports">Sports</option>
+          <option value="science">Science</option>
+          <option value="history">History</option>
+          <option value="fiction">Fiction</option>
+        </select>
+      </div>
+       {filteredData.length === 0 ? (
+        <p>No matching results found.</p>
+      ) : (
+        <div className='podcast-flex'>
+          {filteredData.map((item) => {
+            return <PodcastCard key={item.id} id={item.id} title={item.title} displayImage={item.displayImage} />
+          })}
+        </div>
+      )}
         </div>
     </div>
   )

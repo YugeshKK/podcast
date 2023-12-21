@@ -4,7 +4,7 @@ import { Button } from '../../common/Button';
 import {auth, db} from '../../../firebase'
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { setUser } from '../../../slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -14,6 +14,7 @@ export const LoginForm = () => {
     const [email, setEmail]= useState('')
     const [password, setPassword]= useState('');
     const [load, setLoad]= useState(false)
+    const userPro=   useSelector(state=> state.user.user);
 
     const dispatch= useDispatch();
     const navigate= useNavigate();
@@ -41,7 +42,8 @@ export const LoginForm = () => {
           dispatch(setUser({
             name:userData.name,
             email:user.email,
-            uid:user.uid
+            uid:user.uid,
+            profile:userPro.profile
           }));
 
           setLoad(false)
@@ -49,6 +51,7 @@ export const LoginForm = () => {
           navigate('/profile')
         } catch (error) {
           console.log(error)
+          setLoad(false)
           toast.error(error.message)
         }
       }else{
