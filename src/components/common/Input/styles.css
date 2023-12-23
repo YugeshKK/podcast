@@ -24,3 +24,24 @@
 .custom-input::placeholder{
     color: var(--purple-grey);
 }
+
+@media screen and (width<=320px) {
+    .custom-input{
+        width: 100%;
+       align-items: center;
+    }
+}
+
+@media screen and (width<=376px) {
+    .custom-input{
+        width: 100%;
+    }
+}
+
+@media screen and (width<=426px) {
+    .custom-input{
+        width: 100%;
+    }
+}
+
+

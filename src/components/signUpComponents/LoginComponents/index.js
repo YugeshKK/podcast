@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { setUser } from '../../../slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ResetPassword } from '../../../pages/ResetPassword';
 
 
 export const LoginForm = () => {
@@ -15,6 +16,7 @@ export const LoginForm = () => {
     const [password, setPassword]= useState('');
     const [load, setLoad]= useState(false)
     const userPro=   useSelector(state=> state.user.user);
+    const [click, setClick]= useState(false);
 
     const dispatch= useDispatch();
     const navigate= useNavigate();
@@ -39,11 +41,13 @@ export const LoginForm = () => {
          const userDoc= await getDoc(doc(db, 'users', user.uid))
          const userData= userDoc.data();
           // Save data in the redux, call the redux 
+          let pro =await userPro.profile;
+
           dispatch(setUser({
             name:userData.name,
             email:user.email,
             uid:user.uid,
-            profile:userPro.profile
+            profile:pro,
           }));
 
           setLoad(false)
@@ -75,6 +79,7 @@ export const LoginForm = () => {
 
             />
             <Button text={load ? 'Loading' : 'Login'} onClick={handleLogin} disabled={load}/>
+            <button className='pass' onClick={()=> navigate('/reset-pass') }>Forgot / Reset Password</button>
     </>
   )
 }

@@ -14,17 +14,6 @@ export const Profile = () => {
 
 
   const getData= async ()=>{
-    // try {
-    //     const docRef = doc(db, "podcasts", user.uid);
-    //     const docSnap = await getDoc(docRef);
-    //     console.log(docSnap)
-    //     if (docSnap.exists()) {
-    //     setData({id:user.uid, ...docSnap.data()})
-    //     toast.success('Podcast Found')
-    //     }
-    //   } catch (error) {
-    //     toast.error('No such Podcast')
-    //   }
     console.log(auth.currentUser.uid)
 }
 

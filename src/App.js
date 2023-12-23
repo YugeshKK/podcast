@@ -15,6 +15,7 @@ import { CreateaPodCast } from './pages/CreateaPodCast';
 import { Podcasts } from './pages/Podcasts';
 import { PodcastDetails } from './pages/PodcastDetails';
 import { CreateEpisode } from './pages/CreateEpisode';
+import { ResetPassword } from './pages/ResetPassword';
 
 function App() {
 
@@ -66,7 +67,7 @@ const dispatch= useDispatch();
         <Route path='/podcast/:id' element=<PodcastDetails/> />
         <Route path='/podcast/:id/create-episode' element=<CreateEpisode/> />
         </Route>
-
+        <Route path='/reset-pass' element=<ResetPassword/> />
       </Routes>
     </BrowserRouter>
     

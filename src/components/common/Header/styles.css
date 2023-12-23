@@ -12,6 +12,14 @@
     align-items: center;
 }
 
+#icon{
+    display: none;
+}
+
+.mini{
+    display: none;
+}
+
 .links a{
     color: #b7c7d6;
     font-weight: 500;
@@ -35,4 +43,130 @@
     filter: blur(100px);
     z-index: -1;
     top: -120px;
+}
+
+@media screen and (width<=320px) {
+    .links{
+       display: none;
+    }
+    #icon{
+        display:block;
+        position: fixed;
+        top: 20px;
+        left: 490px;
+        width: 30px;
+        height: 30px;
+    }
+  .mini{
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 55px;
+    left: 370px;
+    justify-content: space-between;
+    width: 160px;
+    font-size: 13px;
+    height: 250px;
+    background-color: #b7c7d632;
+  }
+
+  .mini a{
+    color: #b7c7d6;
+    font-weight: 500;
+    text-decoration: none !important;
+  }
+
+  .mini.open{
+    display: flex;
+  }
+
+  .mini.open a:hover{
+    color: purple;
+    transition: all 0.3s;
+}
+}
+
+@media screen and (width<=376px) {
+    .links{
+       display: none;
+    }
+    #icon{
+        display:block;
+        position: fixed;
+        top: 20px;
+        left: 490px;
+        width: 30px;
+        height: 30px;
+    }
+  .mini{
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 55px;
+    left: 370px;
+    justify-content: space-between;
+    width: 160px;
+    font-size: 13px;
+    height: 250px;
+    background-color: #b7c7d632;
+  }
+
+  .mini a{
+    color: #b7c7d6;
+    font-weight: 500;
+    text-decoration: none !important;
+  }
+
+  .mini.open{
+    display: flex;
+  }
+
+  .mini.open a:hover{
+    color: purple;
+    transition: all 0.3s;
+}
+}
+
+@media screen and (width<=426px) {
+    .links{
+       display: none;
+    }
+    #icon{
+        display:block;
+        position: fixed;
+        top: 20px;
+        left: 490px;
+        width: 30px;
+        height: 30px;
+    }
+  .mini{
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 55px;
+    left: 370px;
+    justify-content: space-between;
+    width: 160px;
+    font-size: 13px;
+    height: 250px;
+    background-color: #b7c7d632;
+  }
+
+  .mini a{
+    color: #b7c7d6;
+    font-weight: 500;
+    text-decoration: none !important;
+  }
+
+  .mini.open{
+    display: flex;
+  }
+
+  .mini.open a:hover{
+    color: purple;
+    transition: all 0.3s;
+}
 }
