@@ -98,3 +98,57 @@ input{
     margin-bottom: 10px;
 }
 
+
+@media screen and (width<=320px) {
+    .btn{
+        margin-left:450px;
+    }
+    .btn button{
+        width: 120px;
+    }
+    .img-wrapper{
+        margin-left: 200px;
+    }
+    .your{
+     margin-left: 200px;
+    }
+    .pod{
+        margin-left: 180px;
+    }
+}
+
+@media screen and (width<=376px) {
+    .btn{
+        margin-left:450px;
+    }
+    .btn button{
+        width: 120px;
+    }
+    .img-wrapper{
+        margin-left: 200px;
+    }
+    .your{
+     margin-left: 200px;
+    }
+    .pod{
+        margin-left: 180px;
+    }
+}
+
+@media screen and (width<=426px) {
+    .btn{
+        margin-left:450px;
+    }
+    .btn button{
+        width: 120px;
+    }
+    .img-wrapper{
+        margin-left: 200px;
+    }
+    .your{
+     margin-left: 200px;
+    }
+    .pod{
+        margin-left: 180px;
+    }
+}

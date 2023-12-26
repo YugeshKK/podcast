@@ -74,7 +74,7 @@ export const PodcastDetails = () => {
                <p>{podcast.description}</p>
                <h1>Episodes</h1>
                <p>{episode.length>0 ? 
-                <>
+                <div className='sanj'>
                   {episode.map((item, index)=>{
                     return <EpisodeDetails
                     key={index}
@@ -82,7 +82,7 @@ export const PodcastDetails = () => {
                     title={item.title} description={item.description} audioFile={item.audioFile}
                     onClick={(file)=> setFile(file)} />
                   })}
-                </>
+                </div>
                 : <p>No episode</p> }</p>
                </div>
             )}

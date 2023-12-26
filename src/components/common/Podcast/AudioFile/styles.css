@@ -35,3 +35,42 @@
 .volume-range{
     width: 80px;
 }
+
+@media screen and (width<=320px) {
+    .custom-audio-player img{
+        margin-left: 0px;
+    }
+    .volume-range{
+        width: 50px;
+    }
+    .audio-range {
+        min-width: 30%;
+    }
+
+}
+
+@media screen and (width<=376px) {
+    .custom-audio-player img{
+        margin-left: 0px;
+    }
+    .volume-range{
+        width: 70px;
+    }
+    .audio-range {
+        min-width: 40%;
+    }
+
+}
+
+@media screen and (width<=426px) {
+    .custom-audio-player img{
+        margin-left: 0px;
+    }
+    .volume-range{
+        width: 100px;
+    }
+    .audio-range {
+        min-width: 40%;
+    }
+
+}
