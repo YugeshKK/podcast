@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { auth, db } from '../firebase';
 import { EpisodeDetails } from '../components/common/Episode';
 import AudioPlayer from '../components/common/Podcast/AudioFile';
+import { useLocation } from 'react-router-dom';
 
 export const PodcastDetails = () => {
     const {id}= useParams();
@@ -13,63 +14,46 @@ export const PodcastDetails = () => {
     const navigate= useNavigate();
     const [episode, setEpisode]= useState([]);
     const [playFile, setFile]= useState('');
+    const location = useLocation();    
 
-
-    useEffect(() =>{
-      if(id){
-        getData();
-      }
-    }, [])
-    
+    const mongoId= localStorage.getItem('mongoUserId');
+    console.log(mongoId)
+    const API_URL = "https://podcast-backend-zbz1.onrender.com";
     const getData= async ()=>{
-        try {
-            const docRef = doc(db, "podcasts", id);
-            const docSnap = await getDoc(docRef);
-  
-            if (docSnap.exists()) {
-            setPodcast({id:id, ...docSnap.data()})
-            toast.success('Podcast Found')
-            }
-          } catch (error) {
-            toast.error('No such Podcast')
-            navigate('/podcast')
-          }
+      try {
+        fetch(`${API_URL}/api/podcasts/${id}`)
+          .then(res => res.json())
+          .then(data => setPodcast(data));
+        } catch (error) {
+          toast.error('No such Podcast')
+          navigate('/podcast')
+        }
     }
 
-    useEffect(() => {
-      const unsubscribe= onSnapshot(
-        query(collection(db, 'podcasts', id, 'episodes')),
-        (querySnapShot)=>{
-          const episodeData=[];
-         querySnapShot.forEach((doc)=>{
-          episodeData.push({id:doc.id, ...doc.data()})
-         });
-         setEpisode(episodeData);
-        }, 
-        (error)=>{
-          console.log('error' + error)
-        }
-      )
+    useEffect(()=>{
+      getData();
+    }, [location.pathname])
     
-      return () => {
-        unsubscribe();
-      }
-    }, [id])
+    useEffect(() => {
+       fetch(`${API_URL}/api/episodes/${mongoId}`)
+          .then(res => res.json())
+          .then(data => setEpisode(data));
+    }, [mongoId, location.pathname]);
     
   return (
     <div>
         <Header />
         <div className='tit'>
         <h1>{podcast.title}</h1>
-        {podcast.createdBy == auth.currentUser.uid && (
-            <button onClick={()=> navigate(`/podcast/${podcast.id}/create-episode`)}>Create Episode</button>
+        {podcast.createdBy === mongoId && (
+            <button onClick={()=> navigate(`/podcast/${podcast.createdBy}/create-episode`)}>Create Episode</button>
         )} 
         </div>
         <div className="wrapper">
-            {podcast.id && (
+            {podcast.createdBy && (
                <div className='details'>
                <div className="banner-wrapper">
-                <img src={podcast.bannerIamge} alt="" />
+                <img src={podcast.displayImage} alt="" />
                </div>
                <p>{podcast.description}</p>
                <h1>Episodes</h1>

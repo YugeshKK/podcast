@@ -13,25 +13,16 @@ export const Profile = () => {
   const user=   useSelector(state=> state.user.user);
 
 
-  const getData= async ()=>{
-    console.log(auth.currentUser.uid)
-}
+  const userId=user?.uid;
+  const mongoId= localStorage.getItem('mongoUserId');
 
-
-
-  useEffect(()=>{
-  }, [])
- 
   if(!user){
     return <p>Loading...</p>
   }
   if(!podcasts){
     return <p>Loading...</p>
   }
-  if(user){
-    getData();
-  }
-
+  console.log(userId, podcasts);
 
 
   const handleLogout=()=>{
@@ -58,7 +49,7 @@ export const Profile = () => {
     {podcasts.length>0  ? (
                 <div className='podcast-flex'>
                   {podcasts.map((item)=>
-                    <p>{item.createdBy==auth.currentUser.uid && <PodcastCard  key={item.id}  title={item.title} displayImage={item.displayImage} /> }</p>
+                    item.createdBy==mongoId ? <PodcastCard  key={item.id}  title={item.title} displayImage={item.displayImage} /> : null
                   )}
                 </div>
             )

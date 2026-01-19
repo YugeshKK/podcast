@@ -18,7 +18,8 @@ export const CreateEpisode = () => {
 
   const navigate=useNavigate()
   const dispatch= useDispatch();
-  
+  const mongoId= localStorage.getItem('mongoUserId');
+
   const {id}= useParams();
 
   const audioFileHandle=(file)=>{
@@ -31,27 +32,31 @@ export const CreateEpisode = () => {
       try {
         const audioRef= ref(
           storage, 
-          `podcast-episodes/${auth.currentUser.uid}/${Date.now()}`
+          `podcast-episodes/${mongoId}/${Date.now()}`
         );
         await uploadBytes(audioRef, audioFile);
 
         const audioUrl= await getDownloadURL(audioRef);
+
         const episodeData={
           title:title,
           description:desc,
           audioFile:audioUrl
         }
-        await addDoc(
-          collection(db, 'podcasts', id, 'episodes'),
-          episodeData
-        )
-        toast.success('Episode created');
-        setLoad(false);
-        navigate(`/podcast/${id}`);
-        setTitle('');
-        setDesc('');
-        setAudioFile('');
-
+        const API_URL='https://podcast-backend-zbz1.onrender.com';
+       const response=await fetch(`${API_URL}/api/episodes/${mongoId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(episodeData)
+      });
+        if(response.ok){
+          toast.success('Episode created');
+          setLoad(false);
+          navigate(`/podcast/${id}`);
+          setTitle('');
+          setDesc('');
+          setAudioFile('');
+        }
       } catch (error) {
         toast.error(error.message)
         setLoad(false)

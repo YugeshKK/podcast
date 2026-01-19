@@ -28,7 +28,7 @@ export const SignUpForm = () => {
     const handleSignup= async()=>{
       console.log('login ')
       setLoad(true)
-      if(fullname && email && password && confirm && profilePic){
+      if(fullname && email && password && confirm){
         try {
           //Creating user's account
           const userCredential= await createUserWithEmailAndPassword(
@@ -60,17 +60,35 @@ export const SignUpForm = () => {
           }
           await addDoc(collection(db, 'profile'), data);
 
-          // Save data in the redux, call the redux 
+          setLoad(false)
+          toast.success('User has been created')
+          navigate('/profile');
+          const API_URL='https://podcast-backend-zbz1.onrender.com';
+         const response= await fetch(`${API_URL}/api/auth/sync-user`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fullname,
+              email: user.email,
+              firebaseUid: user.uid
+            })
+          });
+          
+          const db_data= await response.json();
+          if(response.ok){
+            console.log("User synced with backend:", db_data);
+          }
+          localStorage.setItem("mongoUserId", db_data.mongoUserId);
+          let mongoUserId= db_data.mongoUserId;
+          console.log("Mongo User ID:", mongoUserId);
+          // Save data in the redux, call the redux
           dispatch(setUser({
             name:fullname,
             email:user.email,
-            uid:user.uid, 
+            uid:mongoUserId, 
             profile:profileUrl,
           }));
 
-          setLoad(false)
-          toast.success('User has been created')
-          navigate('/profile')
         } catch (error) {
           setLoad(false);
           console.log("Error"+ error)

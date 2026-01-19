@@ -24,9 +24,9 @@ export const CreatePodcastForm = () => {
   const dispatch= useDispatch()
 
   const handleSubmit= async ()=>{
-  if(title && desc && displayImage && bannerIamge){
-    toast.success('Handleing Form')
-    setLoading(true)
+  if(title && desc){
+    toast.success('Handleing Form');
+    setLoading(true);
     try {
       const bannerImageRef= ref(
         storage, 
@@ -44,25 +44,41 @@ export const CreatePodcastForm = () => {
       await uploadBytes(displayImageRef, displayImage);
       
       const displayImageUrl= await getDownloadURL(displayImageRef)
-
+      const userId= localStorage.getItem('mongoUserId');
       const podCastData= {
         title:title,
         description:desc,
         bannerIamge:bannerImageUrl,
         displayImage:displayImageUrl,
-        createdBy:auth.currentUser.uid,
         genere:genere,
+        userId: userId
       }
+      console.log("Podcast Data to be sent to backend:", podCastData);
+      // return;
+    //  const docRef= await addDoc(collection(db, 'podcasts'), podCastData);
+      const API_URL='https://podcast-backend-zbz1.onrender.com';
+        async function addPodcast() {
+          const response= await  fetch(`${API_URL}/api/podcasts`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(podCastData)
+      });
 
-     const docRef= await addDoc(collection(db, 'podcasts'), podCastData);
-      setTitle('');
-      setDesc('');
-      setBanner('');
-      setDisplayImage('');
-      setGenere('');
-      toast.success('Podcast Created')
-      setLoading(false)
-      navigate('/podcast')
+        const result= await response.json();
+        console.log("Podcasts fetched from backend:", result);
+
+        // Clear form fields
+        setTitle('');
+        setDesc('');
+        setBanner('');
+        setDisplayImage('');
+        setGenere('');
+        toast.success('Podcast Created')
+        setLoading(false)
+        navigate('/podcast');
+        }
+        addPodcast();
+
     } catch (error) {
       toast.error(error.message)
       setLoading(false)
@@ -92,7 +108,7 @@ export const CreatePodcastForm = () => {
             placeholder='Description' type='text' required={true}
         />
 
-        <label for="cars">Choose a Genere:</label>
+        <label>Choose a Genere:</label>
 
         <select id="cars" onChange={(e)=> setGenere(e.target.value)} value={genere}>
           <option value="sports">Sports</option>

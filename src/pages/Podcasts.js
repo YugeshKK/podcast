@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPodcast } from '../slices/podCastSlice'
 import { PodcastCard } from '../components/common/Podcast/PodcastCard'
 import { InputComponent } from '../components/common/Input'
+import { useLocation } from "react-router-dom";
+
 
 export const Podcasts = () => {
 
@@ -15,37 +17,23 @@ export const Podcasts = () => {
     const [genere, setGenere]= useState('');
     const [filteredData, setFilteredData] = useState([]);
     const [collectionData, setCollectionData] = useState([]);
+  
+    const location = useLocation();
+    const API_URL = "https://podcast-backend-zbz1.onrender.com";
+  // Fetching Podcast Details from firestore
+        useEffect(() => {
+          if (podcasts.length === 0) {
+            fetch(`${API_URL}/api/podcasts`)
+              .then(res => res.json())
+              .then(data => dispatch(setPodcast(data)));
+          }
+        }, [location.pathname]);
 
 
-    useEffect(() => {
-      const unsubscribe=onSnapshot(
-        query(collection(db, 'podcasts')), 
-        (querySnapShot)=>{
-            const podcastData=[];
-            querySnapShot.forEach((doc)=>{
-                podcastData.push({id:doc.id, ...doc.data()})
-            });
-            dispatch(setPodcast(podcastData))
-        }, 
-        (err)=>{
-            console.log('Error Message is' + err);
-        }
-      )
-    
-      return () => {
-        unsubscribe();
-      }
-    }, [])
-
-   async function getData(){
-         const docRef = doc(db, "users",);
-        const docSnap = await getDoc(docRef);
-        console.log(docSnap)
-   }
-
+    // Fetch data from users collection
    useEffect(() => {
     const fetchCollectionData = async () => {
-      const yourCollection = collection(db, 'users'); // Replace 'yourCollectionName' with the actual name of your collection
+      const yourCollection = collection(db, 'users'); 
 
       try {
         const querySnapshot = await getDocs(yourCollection);
@@ -116,7 +104,8 @@ export const Podcasts = () => {
                 }
               })
             }
-            return <PodcastCard key={item.id} id={item.id} title={item.title} displayImage={item.displayImage} created={nameR}  />
+            console.log("Creator Name for podcast", item);
+            return <PodcastCard key={item._id} id={item._id} title={item.title} displayImage={item.displayImage} created={nameR}  />
           })}
         </div>
       )}

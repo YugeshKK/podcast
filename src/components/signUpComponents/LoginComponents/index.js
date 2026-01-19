@@ -12,9 +12,9 @@ import { ResetPassword } from '../../../pages/ResetPassword';
 
 
 export const LoginForm = () => {
-    const [email, setEmail]= useState('')
+    const [email, setEmail]= useState('');
     const [password, setPassword]= useState('');
-    const [load, setLoad]= useState(false)
+    const [load, setLoad]= useState(false);
     const userPro=   useSelector(state=> state.user.user);
     const [click, setClick]= useState(false);
 
@@ -27,13 +27,13 @@ export const LoginForm = () => {
      setLoad(true)
       if(password.length>0 || email.length>0){
         try {
-          //Creating user's account
+          console.log(email)
           const userCredential= await signInWithEmailAndPassword(
             auth, 
             email, 
             password
           );
-
+          console.log(userCredential)
           const user= userCredential.user;
          
 
@@ -42,7 +42,6 @@ export const LoginForm = () => {
          const userData= userDoc.data();
           // Save data in the redux, call the redux 
           let pro =await userPro.profile;
-
           dispatch(setUser({
             name:userData.name,
             email:user.email,
