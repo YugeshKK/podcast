@@ -79,6 +79,7 @@ export const SignUpForm = () => {
             console.log("User synced with backend:", db_data);
           }
           localStorage.setItem("mongoUserId", db_data.mongoUserId);
+          localStorage.setItem('loggedIn', true);
           let mongoUserId= db_data.mongoUserId;
           console.log("Mongo User ID:", mongoUserId);
           // Save data in the redux, call the redux
