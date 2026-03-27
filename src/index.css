@@ -23,7 +23,7 @@ body {
 
 
 .wrapper{
-  width: 80vw;
+  width: 100%;
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@ body {
 
 
 .details p{
-  color: whitesmoke
+  color: whitesmoke;
 }
 
 .tit{
@@ -102,8 +102,89 @@ body {
   transition: all 0.3s;
 }
 
+.anime {
+  animation: slideUp 0.8s ease-out;
+  font-size: 34px !important;
+}
 
-@media screen and (width<=426px) {
+.bg-div{
+  background-image: url(../public/assets/podcast.jpg);
+  width: 100%;
+  height: 25vh;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: -10px;
+  text-align: center;
+}
+
+.vector{
+  background-image: url(../public/assets/vector.svg);
+  width: 30vw;
+  height: 50vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: slideUp 0.8s ease-in-out;
+}
+
+.guest-vector{
+  background-image: url(../public/assets/guest-vector.svg);
+  width: 30vw;
+  height: 50vh;
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: slideUp 0.8s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.g-div{ 
+    display: flex;
+    flex-direction: row;
+    align-items: self-end;
+    justify-content: start;
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.guest-btn{
+  width: fit-content;
+  height: 40px;
+  padding: 10px 20px;
+  background-color: var(--blue);
+  color: var(--theme);
+  border: none;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.guest-btn:hover{
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(24, 178, 222, 0.4);
+}
+.sign-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 100px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 426px) {
   .wrapper{
     width: 100%;
     margin-left: 100px;
@@ -124,7 +205,7 @@ body {
 }
 
 
-@media screen and (width<=376px) {
+@media screen and (max-width: 376px) {
   .wrapper{
     width: 100%;
     margin-left: 100px;
@@ -145,7 +226,7 @@ body {
   }
 }
 
-@media screen and (width<=320px) {
+@media screen and (max-width: 320px) {
   .wrapper{
     width: 100%;
     margin-left: 100px;

@@ -69,7 +69,6 @@ export const LoginForm = () => {
 
   return (
     <>
-    
             <InputComponent state={email} setState={setEmail} 
             placeholder='Email' type='email' required={true}
             />

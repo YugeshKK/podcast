@@ -2,21 +2,41 @@ import React, { useState } from 'react'
 import { Header } from '../components/common/Header'
 import { SignUpForm } from '../components/signUpComponents/SignUp'
 import { LoginForm } from '../components/signUpComponents/LoginComponents'
+import { auth } from '../firebase'
+import { signInAnonymously } from 'firebase/auth'
 
 export const SignUp = () => {
 
     const [flag, setFlag]= useState(false);
 
+    async function guestLogin(){
+      const guestId= await signInAnonymously(auth);
+      window.location.href = '/podcast';
+    }
+
   return (
     <div className='bg'>
-        <Header/>
+        {/* <Header/> */}
         <div className='wrapper'>
-          {!flag ? <h1>Sign Up</h1> : <h1>Login</h1>}
-          {!flag ? <SignUpForm /> : <LoginForm />}
-          {!flag ? 
-            <p onClick={()=> setFlag(!flag)}>Already have an account. click here to Login</p> :
-            <p onClick={()=> setFlag(!flag)}>Don't have an account. click here to SignUp</p>
-            }
+        <div className="bg-div">
+            <h1 className='anime'>Welcome to Podcast Platform</h1>
+           <h2 className='anime'>Tell your amazing story and share it with the world</h2>
+        </div>
+
+        <div className='g-div'>
+          <div>
+            <div className='vector'></div>
+          </div>
+          <div className='sign-div'>
+            {!flag ? <h1>Sign Up</h1> : <h1>Login</h1>}
+            {!flag ? <SignUpForm /> : <LoginForm />}
+            {!flag ? 
+              <p onClick={()=> setFlag(!flag)}>Already have an account. click here to Login</p> :
+              <p onClick={()=> setFlag(!flag)}>Don't have an account. click here to SignUp</p>
+              }
+              <button onClick={()=> guestLogin()} className='guest-btn'>Continue as a guest</button>
+          </div>
+        </div>
         </div>
 
     </div>

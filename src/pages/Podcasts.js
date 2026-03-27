@@ -92,7 +92,7 @@ export const Podcasts = () => {
         </select>
       </div>
        {filteredData.length === 0 ? (
-        <p>No matching results found.</p>
+        <p>Loading Podcast Please wait...</p>
       ) : (
         <div className='podcast-flex'>
           {filteredData.map((item) => {
