@@ -56,7 +56,7 @@ const dispatch= useDispatch();
   return (
     <div className="App">
     <ToastContainer/>
-    <BrowserRouter>
+    <BrowserRouter basename='/pod'>
       <Routes>
         <Route path='/pod' element=<SignUp/> />
 
