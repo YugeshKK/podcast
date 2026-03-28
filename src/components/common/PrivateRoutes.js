@@ -7,7 +7,7 @@ export const PrivateRoutes = () => {
     const [user, loading, error]= useAuthState(auth);
     if(loading){
         return <p>Loading...</p>
-    }else if(!user || error || !user.isAnonymous){
+    }else if(!user || error){
         return <Navigate to='/' replace />
     }
     else{
