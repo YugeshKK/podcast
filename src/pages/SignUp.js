@@ -4,14 +4,16 @@ import { SignUpForm } from '../components/signUpComponents/SignUp'
 import { LoginForm } from '../components/signUpComponents/LoginComponents'
 import { auth } from '../firebase'
 import { signInAnonymously } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 
 export const SignUp = () => {
 
     const [flag, setFlag]= useState(false);
+    const navigate = useNavigate();
 
     async function guestLogin(){
       const guestId= await signInAnonymously(auth);
-      window.location.href = '/podcast';
+      navigate('/podcast')
     }
 
   return (
