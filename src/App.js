@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Route, Routes } from 'react-router-dom'
+import {HashRouter, Route, Routes } from 'react-router-dom'
 import { SignUp } from './pages/SignUp';
 import { Profile } from './pages/Profile';
 import { ToastContainer } from 'react-toastify';
@@ -56,7 +56,7 @@ const dispatch= useDispatch();
   return (
     <div className="App">
     <ToastContainer/>
-    <BrowserRouter basename='/pod'>
+    <HashRouter>
       <Routes>
         <Route path='/' element=<SignUp/> />
 
@@ -67,9 +67,10 @@ const dispatch= useDispatch();
         <Route path='/podcast/:id' element=<PodcastDetails/> />
         <Route path='/podcast/:id/create-episode' element=<CreateEpisode/> />
         </Route>
+        <Route path="*" element=<SignUp/> />
         <Route path='/reset-pass' element=<ResetPassword/> />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
     
     </div>
   );
