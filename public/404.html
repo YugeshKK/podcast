@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Get the path that caused the 404 (e.g., /podcast)
+      var path = window.location.pathname;
+      // Redirect to the new home with the hash fragment
+      // Example: .../pod/podcast -> .../pod/#/podcast
+      window.location.replace(
+        window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') +
+        path.split('/').slice(0, -1).join('/') + '/#' + path.slice(path.lastIndexOf('/'))
+      );
+    </script>
+  </head>
+  <body>
+    Redirecting you to the new site...
+  </body>
+</html>
