@@ -5,10 +5,9 @@ import {useAuthState} from 'react-firebase-hooks/auth'
 
 export const PrivateRoutes = () => {
     const [user, loading, error]= useAuthState(auth);
-
     if(loading){
         return <p>Loading...</p>
-    }else if(!user || error){
+    }else if(!user || error || !user.isAnonymous){
         return <Navigate to='/' replace />
     }
     else{
