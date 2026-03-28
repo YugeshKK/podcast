@@ -8,7 +8,7 @@ export const PrivateRoutes = () => {
     if(loading){
         return <p>Loading...</p>
     }else if(!user || error){
-        return <Navigate to='/' replace />
+        return <Navigate to='/pod' replace />
     }
     else{
         return <Outlet/>

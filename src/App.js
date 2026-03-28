@@ -58,7 +58,7 @@ const dispatch= useDispatch();
     <ToastContainer/>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element=<SignUp/> />
+        <Route path='/pod' element=<SignUp/> />
 
         <Route element=<PrivateRoutes/> >
         <Route path='/profile' element=<Profile/> />
